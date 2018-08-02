@@ -26,19 +26,19 @@ void Ast::print(std::ostream& out, unsigned level)
     right_->print(out, level + 1);
 
   out << std::string(level * 2, ' ');
-  if (std::holds_alternative<int>(value_))
-    out << std::get<int>(value_) << "\n";
+  if (std::holds_alternative<float>(value_))
+    out << std::get<float>(value_) << "\n";
   else if (std::holds_alternative<char>(value_))
     out << std::get<char>(value_) << "\n";
 }
 
-int Ast::evaluate()
+float Ast::evaluate()
 {
   if (left_)
   {
     assert(right_);
-    int l = left_->evaluate();
-    int r = right_->evaluate();
+    float l = left_->evaluate();
+    float r = right_->evaluate();
 
     switch (std::get<char>(value_))
     {
@@ -49,5 +49,5 @@ int Ast::evaluate()
       default: throw std::runtime_error("Operator not supported");
     }
   }
-  return std::get<int>(value_);
+  return std::get<float>(value_);
 }

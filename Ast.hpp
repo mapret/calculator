@@ -4,7 +4,7 @@
 #include <variant>
 
 
-using NodeValue = std::variant<int, char>;
+using NodeValue = std::variant<float, char>;
 
 class Ast
 {
@@ -17,5 +17,5 @@ class Ast
     void setRight(Ast* right);
     void setValue(NodeValue value);
     void print(std::ostream& out, unsigned level = 0);
-    int evaluate();
+    float evaluate();
 };

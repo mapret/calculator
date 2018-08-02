@@ -11,7 +11,7 @@ std::unique_ptr<Ast> CalculatorVisitor::getRootNode()
   return ret;
 }
 
-void CalculatorVisitor::visitNumber(int number)
+void CalculatorVisitor::visitNumber(float number)
 {
   //std::cout << "number: " << number << "\n";
   auto node = new Ast;
@@ -23,9 +23,9 @@ void CalculatorVisitor::visitOperator(char op)
 {
   //std::cout << "op: " << op << "\n";
   auto node = new Ast;
-  node->setLeft(stack_.top());
-  stack_.pop();
   node->setRight(stack_.top());
+  stack_.pop();
+  node->setLeft(stack_.top());
   stack_.pop();
   node->setValue(op);
   stack_.push(node);

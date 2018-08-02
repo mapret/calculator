@@ -6,9 +6,9 @@
 %%
 
 
-[0-9]+ {
-    yylval.int_val = atoi(yytext);
-    return INTEGER;
+[0-9]+(\.[0-9]*)? {
+    yylval.number_val = atof(yytext);
+    return NUMBER;
 }
 
 "(" {
@@ -19,13 +19,18 @@
   return RBR;
 }
 
-"+"|"-"|"*"|"/" {
-    yylval.op_val = *yytext;
-    return OP;
+"*"|"/" {
+  yylval.op_val = *yytext;
+  return MULOP;
+}
+
+"+"|"-" {
+  yylval.op_val = *yytext;
+  return LINOP;
 }
 
 . {
-  fprintf(stderr, "Lexeing error: %s\n", yytext);
+  fprintf(stderr, "Lexing error: %s\n", yytext);
   return 1;
 }
 

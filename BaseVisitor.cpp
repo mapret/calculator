@@ -12,7 +12,7 @@ void BaseVisitor::makeCurrent()
   visitor = this;
 }
 
-void visitNumber(int n)
+void visitNumber(float n)
 {
   if (visitor)
     visitor->visitNumber(n);

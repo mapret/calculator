@@ -6,19 +6,21 @@
 
 %union
 {
-  int  int_val;
-  char op_val;
+  float number_val;
+  char  op_val;
 }
 
-%left OP
+%left MULOP
+%left LINOP
 
 %start input
 /*%glr-parser*/
 
-%token <int_val> INTEGER "integer"
-%token <op_val>  OP      "op"
-%token <lbr>     LBR     "("
-%token <rbr>     RBR     ")"
+%token <number_val> NUMBER "number"
+%token <op_val>     MULOP  "mulop"
+%token <op_val>     LINOP  "linop"
+%token <lbr>        LBR    "("
+%token <rbr>        RBR    ")"
 
 
 %%
@@ -30,8 +32,9 @@ input:
   ;
 
 expr:
-    INTEGER      { visitNumber($1); }
-  | expr OP expr { visitOperator($2); }
+    NUMBER          { visitNumber($1); }
+  | expr LINOP expr { visitOperator($2); }
+  | expr MULOP expr { visitOperator($2); }
   | LBR expr RBR
   ;
 

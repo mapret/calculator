@@ -3,5 +3,5 @@
 #include "stdio.h"
 
 
-void visitNumber(int n);
+void visitNumber(float n);
 void visitOperator(char op);
