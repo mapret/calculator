@@ -9,9 +9,11 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/ui)
 
 file(GLOB sources
      "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+     "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
      )
 file(GLOB headers
      "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
+     "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
      "${CMAKE_CURRENT_SOURCE_DIR}/*.inl"
      )
 file(GLOB ui_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}

@@ -1,5 +1,6 @@
 %{
   #include "grammar.lexer.h"
+  #include "BaseVisitor.h"
   void yyerror(const char* a) { fprintf(stderr, "Parsing error: %s\n", a); }
 %}
 
@@ -15,7 +16,7 @@
 /*%glr-parser*/
 
 %token <int_val> INTEGER "integer"
-%token <op>      OP      "op"
+%token <op_val>  OP      "op"
 %token <lbr>     LBR     "("
 %token <rbr>     RBR     ")"
 
@@ -29,9 +30,10 @@ input:
   ;
 
 expr:
-    INTEGER
-  | expr OP expr
-  | LBR expr RBR;
+    INTEGER      { visitNumber($1); }
+  | expr OP expr { visitOperator($2); }
+  | LBR expr RBR
+  ;
 
 
 %%
