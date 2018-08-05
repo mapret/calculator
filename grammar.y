@@ -10,8 +10,8 @@
   char  op_val;
 }
 
-%left MULOP
 %left LINOP
+%left MULOP
 
 %start input
 /*%glr-parser*/
