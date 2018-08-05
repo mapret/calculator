@@ -6,5 +6,5 @@
 class Evaluator
 {
   public:
-    void evaluate(const std::string& s);
+    bool evaluate(const std::string& s, float& retval);
 };

@@ -9,7 +9,7 @@ extern "C"
 }
 
 
-void Evaluator::evaluate(const std::string& s)
+bool Evaluator::evaluate(const std::string& s, float& retval)
 {
   yy_scan_string(s.c_str());
   yyout = stdout;
@@ -19,9 +19,10 @@ void Evaluator::evaluate(const std::string& s)
 
   int ret = yyparse();
   yylex_destroy();
-  std::cout << "- " << ret << " -\n";
+  if (ret != 0)
+    return false;
 
   auto ast = visitor.getRootNode();
-  //ast->print(std::cout);
-  std::cout << "Evaluate: " << ast->evaluate() << "\n";
+  retval = ast->evaluate();
+  return true;
 }
