@@ -35,6 +35,7 @@ expr:
     NUMBER          { visitNumber($1); }
   | expr LINOP expr { visitOperator($2); }
   | expr MULOP expr { visitOperator($2); }
+  | LINOP expr      { visitUnaryOperator($1); }
   | LBR expr RBR
   ;
 

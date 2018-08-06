@@ -23,3 +23,9 @@ void visitOperator(char op)
   if (visitor)
     visitor->visitOperator(op);
 }
+
+void visitUnaryOperator(char op)
+{
+  if (visitor)
+    visitor->visitUnaryOperator(op);
+}

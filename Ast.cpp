@@ -34,9 +34,8 @@ void Ast::print(std::ostream& out, unsigned level)
 
 float Ast::evaluate()
 {
-  if (left_)
+  if (left_ && right_)
   {
-    assert(right_);
     float l = left_->evaluate();
     float r = right_->evaluate();
 
@@ -46,6 +45,15 @@ float Ast::evaluate()
       case '-': return l - r;
       case '*': return l * r;
       case '/': return l / r;
+      default: throw std::runtime_error("Operator not supported");
+    }
+  }
+  else if (left_)
+  {
+    float l = left_->evaluate();
+    switch (std::get<char>(value_))
+    {
+      case '-': return -l;
       default: throw std::runtime_error("Operator not supported");
     }
   }

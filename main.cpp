@@ -25,6 +25,14 @@ void test()
   TEST("5-3-6", -4)
   TEST("(((2)))", 2)
   TEST("(((2*(2+2))))", 8)
+  TEST("-2", -2)
+  TEST("-2+3", 1)
+  TEST("-(1+2)", -3)
+  TEST("2+-3", -1)
+  TEST("2--3", 5)
+  TEST("2+++3", 5)
+  TEST("2+-+-+-3", -1);
+  TEST("--2", 2)
 
   std::cout << "Correct/wrong " << correct << "/" << wrong << "\n";
 }

@@ -30,3 +30,15 @@ void CalculatorVisitor::visitOperator(char op)
   node->setValue(op);
   stack_.push(node);
 }
+
+void CalculatorVisitor::visitUnaryOperator(char op)
+{
+  //std::cout << "uop: " << op << "\n";
+  if (op == '+')
+    return; //Do nothing at unary "+"
+  auto node = new Ast;
+  node->setLeft(stack_.top());
+  stack_.pop();
+  node->setValue(op);
+  stack_.push(node);
+}
