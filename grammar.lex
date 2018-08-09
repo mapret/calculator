@@ -1,5 +1,6 @@
 %{
   #include "grammar.parser.h"
+  #include "BaseVisitor.h"
 %}
 
 
@@ -30,7 +31,7 @@
 }
 
 . {
-  fprintf(stderr, "Lexing error: %s\n", yytext);
+  lexingError(*yytext);
   return 1;
 }
 

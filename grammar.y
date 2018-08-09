@@ -1,7 +1,7 @@
 %{
   #include "grammar.lexer.h"
   #include "BaseVisitor.h"
-  void yyerror(const char* a) { fprintf(stderr, "Parsing error: %s\n", a); }
+  void yyerror(const char* a) { parsingError(a); }
 %}
 
 %union
@@ -27,8 +27,7 @@
 
 
 input:
-    %empty
-  | expr
+  expr
   ;
 
 expr:

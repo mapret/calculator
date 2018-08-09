@@ -1,7 +1,8 @@
 #pragma once
 
-#include "stdio.h"
 
+void lexingError(char c);
+void parsingError(const char* message);
 
 void visitNumber(float n);
 void visitOperator(char op);

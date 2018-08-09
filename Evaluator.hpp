@@ -6,5 +6,5 @@
 class Evaluator
 {
   public:
-    bool evaluate(const std::string& s, float& retval);
+    bool evaluate(const std::string& s, float& retval, std::ostream* err = nullptr);
 };

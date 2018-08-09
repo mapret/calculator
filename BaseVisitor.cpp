@@ -5,27 +5,35 @@ extern "C"
 }
 
 
-BaseVisitor* visitor = nullptr;
+BaseVisitor* visitor_ = nullptr;
+#define visitor if(visitor_) visitor_
 
 void BaseVisitor::makeCurrent()
 {
-  visitor = this;
+  visitor_ = this;
+}
+
+void lexingError(char c)
+{
+  visitor->lexingError(c);
+}
+
+void parsingError(const char* message)
+{
+  visitor->parsingError(std::string(message));
 }
 
 void visitNumber(float n)
 {
-  if (visitor)
-    visitor->visitNumber(n);
+  visitor->visitNumber(n);
 }
 
 void visitOperator(char op)
 {
-  if (visitor)
-    visitor->visitOperator(op);
+  visitor->visitOperator(op);
 }
 
 void visitUnaryOperator(char op)
 {
-  if (visitor)
-    visitor->visitUnaryOperator(op);
+  visitor->visitUnaryOperator(op);
 }

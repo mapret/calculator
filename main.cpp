@@ -12,7 +12,7 @@
     wrong++; \
 }
 
-void test()
+int test()
 {
   unsigned correct = 0;
   unsigned wrong = 0;
@@ -35,9 +35,30 @@ void test()
   TEST("--2", 2)
 
   std::cout << "Correct/wrong " << correct << "/" << wrong << "\n";
+  return wrong != 0;
+}
+
+int interactive()
+{
+  std::string s;
+  Evaluator evaluator;
+  while (std::getline(std::cin, s))
+  {
+    float retval;
+    if (evaluator.evaluate(s, retval, &std::cout))
+      std::cout << retval << "\n";
+  }
+  return 0;
 }
 
 int main(int argc, char** argv)
 {
-  test();
+  if (argc == 1)
+    return interactive();
+
+  std::string mode(argv[1]);
+  if (mode == "test")
+    return test();
+
+  return 1;
 }

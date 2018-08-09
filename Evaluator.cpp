@@ -9,20 +9,23 @@ extern "C"
 }
 
 
-bool Evaluator::evaluate(const std::string& s, float& retval)
+bool Evaluator::evaluate(const std::string& s, float& retval, std::ostream* err)
 {
   yy_scan_string(s.c_str());
-  yyout = stdout;
 
-  CalculatorVisitor visitor;
+  std::stringstream error_stream;
+  CalculatorVisitor visitor(error_stream);
   visitor.makeCurrent();
 
   int ret = yyparse();
   yylex_destroy();
+
+  if (err)
+    *err << error_stream.str();
   if (ret != 0)
     return false;
 
   auto ast = visitor.getRootNode();
   retval = ast->evaluate();
-  return true;
+  return error_stream.str().empty();
 }

@@ -3,12 +3,27 @@
 #include "CalculatorVisitor.hpp"
 
 
+CalculatorVisitor::CalculatorVisitor(std::ostream& error_stream)
+  : error_stream_(error_stream)
+{
+}
+
 std::unique_ptr<Ast> CalculatorVisitor::getRootNode()
 {
   auto ret = std::unique_ptr<Ast>(stack_.top());
   stack_.pop();
   assert(stack_.empty());
   return ret;
+}
+
+void CalculatorVisitor::lexingError(char c)
+{
+  error_stream_ << "Lexing error: " << c << "\n";
+}
+
+void CalculatorVisitor::parsingError(const std::string& message)
+{
+  error_stream_ << "Parsing error: " << message << "\n";
 }
 
 void CalculatorVisitor::visitNumber(float number)
