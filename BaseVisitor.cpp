@@ -37,3 +37,8 @@ void visitUnaryOperator(char op)
 {
   visitor->visitUnaryOperator(op);
 }
+
+void visitFunction(const char* name)
+{
+  visitor->visitFunction(std::string(name));
+}

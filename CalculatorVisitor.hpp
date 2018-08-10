@@ -16,6 +16,7 @@ class CalculatorVisitor : public BaseVisitor
     void visitNumber(float number) override;
     void visitOperator(char op) override;
     void visitUnaryOperator(char op) override;
+    void visitFunction(const std::string& name) override;
 
     std::unique_ptr<Ast> getRootNode();
 

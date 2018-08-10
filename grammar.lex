@@ -30,6 +30,17 @@
   return LINOP;
 }
 
+"^" {
+  yylval.op_val = *yytext;
+  return POWER;
+}
+
+[a-z][a-z0-9]{0,3} {
+  strncpy(yylval.func_name, yytext, 4);
+  yylval.func_name[4] = 0;
+  return FUNCTION;
+}
+
 . {
   lexingError(*yytext);
   return 1;

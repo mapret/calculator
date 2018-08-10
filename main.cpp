@@ -1,4 +1,5 @@
 #include "Evaluator.hpp"
+#include <cmath>
 #include <iostream>
 #include <map>
 
@@ -6,10 +7,16 @@
 #define TEST(expr, result) \
 { \
   float res; \
-  if (Evaluator().evaluate(expr, res) && res == result) \
+  if (Evaluator().evaluate(expr, res) && approximatelyEqual(res, static_cast<float>(result))) \
     correct++; \
   else \
     wrong++; \
+}
+
+template <typename T>
+bool approximatelyEqual(T a, T b, T epsilon = T(10.e-4))
+{
+  return std::abs(a - b) <= ((std::abs(a) < std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
 }
 
 int test()
@@ -31,8 +38,16 @@ int test()
   TEST("2+-3", -1)
   TEST("2--3", 5)
   TEST("2+++3", 5)
-  TEST("2+-+-+-3", -1);
+  TEST("2+-+-+-3", -1)
   TEST("--2", 2)
+  TEST("2^10", 1024)
+  TEST("2+2*2^2", 10)
+  TEST("2^3^4", 4096)
+  TEST("2^-3", 0.125)
+  TEST("cos(1)", 0.5403023058681398)
+  TEST("sin(asin(0.3))", 0.3)
+  TEST("sin(0.3)^2+cos(0.3)^2", 1)
+  TEST("sin(0.2)/cos(0.2)-tan(0.2)", 0)
 
   std::cout << "Correct/wrong " << correct << "/" << wrong << "\n";
   return wrong != 0;

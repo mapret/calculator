@@ -1,5 +1,6 @@
 #include "Ast.hpp"
 #include <cassert>
+#include <cmath>
 #include <ostream>
 
 
@@ -13,9 +14,9 @@ void Ast::setRight(Ast* right)
   right_.reset(right);
 }
 
-void Ast::setValue(NodeValue value)
+void Ast::setValue(NodeValue&& value)
 {
-  value_ = value;
+  value_ = std::move(value);
 }
 
 void Ast::print(std::ostream& out, unsigned level)
@@ -45,16 +46,33 @@ float Ast::evaluate()
       case '-': return l - r;
       case '*': return l * r;
       case '/': return l / r;
+      case '^': return std::pow(l, r);
       default: throw std::runtime_error("Operator not supported");
     }
   }
   else if (left_)
   {
     float l = left_->evaluate();
-    switch (std::get<char>(value_))
+    if (std::holds_alternative<char>(value_)) //unary operator
     {
-      case '-': return -l;
-      default: throw std::runtime_error("Operator not supported");
+      switch (std::get<char>(value_))
+      {
+        case '-': return -l;
+        default: throw std::runtime_error("Operator not supported");
+      }
+    }
+    else //function
+    {
+      const auto& function = std::get<std::string>(value_);
+      if (function == "sin")  return std::sin(l);
+      if (function == "cos")  return std::cos(l);
+      if (function == "tan")  return std::tan(l);
+      if (function == "asin") return std::asin(l);
+      if (function == "acos") return std::acos(l);
+      if (function == "atan") return std::atan(l);
+      if (function == "log")  return std::log10(l);
+      if (function == "ln")   return std::log(l);
+      if (function == "log2") return std::log2(l);
     }
   }
   return std::get<float>(value_);

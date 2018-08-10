@@ -12,4 +12,5 @@ class BaseVisitor
     virtual void visitNumber(float number) {}
     virtual void visitOperator(char op) {}
     virtual void visitUnaryOperator(char op) {}
+    virtual void visitFunction(const std::string& name) {}
 };

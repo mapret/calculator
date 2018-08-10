@@ -57,3 +57,13 @@ void CalculatorVisitor::visitUnaryOperator(char op)
   node->setValue(op);
   stack_.push(node);
 }
+
+void CalculatorVisitor::visitFunction(const std::string& name)
+{
+  //std::cout << "function: " << name << "\n";
+  auto node = new Ast;
+  node->setLeft(stack_.top());
+  stack_.pop();
+  node->setValue(name);
+  stack_.push(node);
+}
