@@ -16,7 +16,7 @@
 template <typename T>
 bool approximatelyEqual(T a, T b, T epsilon = T(10.e-4))
 {
-  return std::abs(a - b) <= ((std::abs(a) < std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
+  return std::abs(a - b) <= std::max(std::abs(a), std::abs(b)) * epsilon;
 }
 
 int test()
@@ -48,6 +48,8 @@ int test()
   TEST("sin(asin(0.3))", 0.3)
   TEST("sin(0.3)^2+cos(0.3)^2", 1)
   TEST("sin(0.2)/cos(0.2)-tan(0.2)", 0)
+  TEST("sin(PI)", 0)
+  TEST("ln(E)", 1)
 
   std::cout << "Correct/wrong " << correct << "/" << wrong << "\n";
   return wrong != 0;

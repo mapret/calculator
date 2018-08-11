@@ -9,6 +9,7 @@
   float number_val;
   char  op_val;
   char  func_name[5];
+  char  const_name[5];
 }
 
 %left LINOP
@@ -23,6 +24,7 @@
 %token <op_val>     LINOP    "linop"
 %token <op_val>     POWER    "power"
 %token <func_name>  FUNCTION "function"
+%token <const_name> CONSTANT "constant"
 %token <lbr>        LBR      "("
 %token <rbr>        RBR      ")"
 
@@ -36,6 +38,7 @@ input:
 
 expr:
     NUMBER                { visitNumber($1); }
+  | CONSTANT              { visitConstant($1); }
   | expr LINOP expr       { visitOperator($2); }
   | expr MULOP expr       { visitOperator($2); }
   | expr POWER expr       { visitOperator($2); }

@@ -34,6 +34,15 @@ void CalculatorVisitor::visitNumber(float number)
   stack_.push(node);
 }
 
+void CalculatorVisitor::visitConstant(const std::string& name)
+{
+  //std::cout << "constant: " << name << "\n";
+  auto node = new Ast;
+  node->setValue(name);
+  stack_.push(node);
+}
+
+
 void CalculatorVisitor::visitOperator(char op)
 {
   //std::cout << "op: " << op << "\n";

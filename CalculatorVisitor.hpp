@@ -14,6 +14,7 @@ class CalculatorVisitor : public BaseVisitor
     void lexingError(char c) override;
     void parsingError(const std::string& message) override;
     void visitNumber(float number) override;
+    void visitConstant(const std::string& name) override;
     void visitOperator(char op) override;
     void visitUnaryOperator(char op) override;
     void visitFunction(const std::string& name) override;

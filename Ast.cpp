@@ -73,7 +73,15 @@ float Ast::evaluate()
       if (function == "log")  return std::log10(l);
       if (function == "ln")   return std::log(l);
       if (function == "log2") return std::log2(l);
+      throw std::runtime_error("Function \"" + function + "\" not supported");
     }
+  }
+  else if (std::holds_alternative<std::string>(value_)) //constant
+  {
+    const std::string& c = std::get<std::string>(value_);
+    if (c == "PI") return 3.1415926535897932384626433f;
+    if (c == "E")  return 2.7182818284590452353602874f;
+    throw std::runtime_error("Constant\"" + c + "\" not known");
   }
   return std::get<float>(value_);
 }

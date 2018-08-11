@@ -10,6 +10,7 @@ class BaseVisitor
     virtual void lexingError(char c) {}
     virtual void parsingError(const std::string& message) {}
     virtual void visitNumber(float number) {}
+    virtual void visitConstant(const std::string& name) {}
     virtual void visitOperator(char op) {}
     virtual void visitUnaryOperator(char op) {}
     virtual void visitFunction(const std::string& name) {}

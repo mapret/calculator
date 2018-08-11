@@ -28,6 +28,11 @@ void visitNumber(float n)
   visitor->visitNumber(n);
 }
 
+void visitConstant(const char* name)
+{
+  visitor->visitConstant(std::string(name));
+}
+
 void visitOperator(char op)
 {
   visitor->visitOperator(op);

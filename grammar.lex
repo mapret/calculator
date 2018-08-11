@@ -41,6 +41,12 @@
   return FUNCTION;
 }
 
+[A-Z]{1,4} {
+  strncpy(yylval.const_name, yytext, 4);
+  yylval.const_name[4] = 0;
+  return CONSTANT;
+}
+
 . {
   lexingError(*yytext);
   return 1;
