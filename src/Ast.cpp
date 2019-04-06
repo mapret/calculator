@@ -73,6 +73,7 @@ float Ast::evaluate()
       if (function == "log")  return std::log10(l);
       if (function == "ln")   return std::log(l);
       if (function == "log2") return std::log2(l);
+      if (function == "sqrt") return std::sqrt(l);
       throw std::runtime_error("Function \"" + function + "\" not supported");
     }
   }
